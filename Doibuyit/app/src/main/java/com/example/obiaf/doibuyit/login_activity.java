@@ -14,8 +14,8 @@ import java.util.ArrayList;
     public class login_activity extends AppCompatActivity {
 
         Button overviewButton;
-        EditText overviewUsernameInput;
-        EditText overviewPasswordInput;
+        EditText overviewUsernameInput2;
+        EditText overviewPasswordInput2;
         TextView verify;
         ArrayList<String> users;
         ArrayList<String> passes;
@@ -25,8 +25,8 @@ import java.util.ArrayList;
             super.onCreate(savedInstanceState);
             setContentView(R.layout.login);
             Button overviewButton = (Button) findViewById(R.id.overviewButton);                     //login button
-            final EditText overviewUsernameInput = (EditText) findViewById(R.id.overviewUsernameInput);   //Username
-            final EditText overviewPasswordInput = (EditText) findViewById(R.id.overviewPasswordInput);   //Password
+            final EditText overviewUsernameInput2 = (EditText) findViewById(R.id.overviewUsernameInput2);   //Username
+            final EditText overviewPasswordInput2 = (EditText) findViewById(R.id.overviewPasswordInput2);   //Password
             overviewButton = (Button) findViewById(R.id.overviewButton);                     //login button
 
             verify = (TextView) findViewById(R.id.verify);
@@ -34,23 +34,16 @@ import java.util.ArrayList;
             overviewButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    validateCustomer(overviewUsernameInput.getText().toString(), overviewPasswordInput.getText().toString());
-                    validateLogin(overviewUsernameInput.getText().toString(), overviewPasswordInput.getText().toString());
+                    validateLogin(overviewUsernameInput2.getText().toString(), overviewPasswordInput2.getText().toString());
                 }
             });
-        }
-
-
-        public void validateCustomer(String user, String pass) {
-            if (user.equals("Wael") && pass.equals("abc")) System.out.println("Yes");
-            else System.out.println("No");
         }
 
         public void validateLogin(String user, String pass) {
             users = getIntent().getStringArrayListExtra("usernames");
             passes = getIntent().getStringArrayListExtra("passwords");
             if (users.contains(user) && passes.contains(pass)) {
-                Intent i = new Intent(login_activity.this, MainActivity.class);
+                Intent i = new Intent(login_activity.this, MoneyActivity.class);
                 startActivity(i);
             } else {
                 verify.setText("Username or password is incorrect!");

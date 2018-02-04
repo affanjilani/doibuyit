@@ -1,13 +1,17 @@
 package com.example.obiaf.doibuyit;
 
 import android.content.Intent;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.FitWindowsFrameLayout;
 import android.view.View;
 import android.widget.ImageButton;
 
-public class BudgetActivity extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+public class BudgetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,8 +26,11 @@ public class BudgetActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String budg = budget.getText().toString();
+                String bal = getIntent().getStringExtra("balance");
                 Intent i = new Intent(BudgetActivity.this, MainActivity.class);
-                i.putExtra("monthBudget",budg);
+                i.putExtra("monthlyBudget",budg);
+                i.putExtra("balance",bal);
+
                 startActivity(i);
             }
         });

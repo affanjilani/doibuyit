@@ -1,8 +1,13 @@
 package com.example.obiaf.doibuyit;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.provider.ContactsContract;
+import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +27,10 @@ import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
@@ -44,18 +53,35 @@ public class MainActivity extends AppCompatActivity {
     String moneySpentMonth; //how much money spent this month
     String moneySpentWeek; //how much money spent this week
     String name;    //name of customer
+    Button tv;
+    String addedExpense;
+    String addedExpenseWeek;
+    String addedExpenseMonth;
+    String amount;
+    String moneyWeek;
+    String moneyMonth;
+    String balanceS;
+    String moneyWeekS;
+    String moneyMonthS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         databaseCustomers = FirebaseDatabase.getInstance().getReference("Customers");
-
+        balance = getIntent().getStringExtra("balance");
+        monthlyBudget = getIntent().getStringExtra("monthlyBudget");
+        databaseCustomers.child("0").child("balance").setValue(balance);
+        databaseCustomers.child("0").child("monthlyBudget").setValue(monthlyBudget);
+        databaseCustomers.child("0").child("moneySpentWeek").setValue("0");
+        databaseCustomers.child("0").child("moneySpentMonth").setValue("0");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        tv = (Button) findViewById(R.id.clickme);
 
         //all fields from activity_main.xml we will have to change
         final TextView overviewBalance = (TextView) findViewById(R.id.overviewBalance);   //total amount
@@ -72,20 +98,19 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     balance = String.valueOf(child.child("balance").getValue());
+                    balanceS = balance;
                     monthlyBudget = String.valueOf(child.child("monthlyBudget").getValue());
                     moneySpentMonth = String.valueOf(child.child("moneySpentMonth").getValue());
+                    moneyMonthS = moneySpentMonth;
                     moneySpentWeek = String.valueOf(child.child("moneySpentWeek").getValue());
-                    name = String.valueOf(child.child("name").getValue());
-                    //creating a customer object and then adding it to the arrayList.
-                    System.out.println(child);
-                    customersList.add(new Customers(name, balance, monthlyBudget, moneySpentWeek, moneySpentMonth));
+                    moneyWeekS = moneySpentWeek;
                 }
 
                 //set total balance
-                overviewBalance.setText(balance);
+                overviewBalance.setText(balance+"$");
 
                 //set monthly budget
-                overviewMonthBudget.setText(monthlyBudget);
+                overviewMonthBudget.setText("MONTHLY BUDGET: " + monthlyBudget);
 
                 //set weekly progress
                 progress1.setProgressColor(Color.parseColor("#FFFFFF"));
@@ -94,14 +119,18 @@ public class MainActivity extends AppCompatActivity {
                 progress1.setProgress(Float.parseFloat(moneySpentWeek));
 
                 //set amount left text
-                String rounded = String.format("%.2f", Double.parseDouble(monthlyBudget) / 4);
-                amountLeftWk.setText(Double.parseDouble(rounded) - Double.parseDouble(moneySpentWeek) + "$ left for this week.");
+                String rounded = roundNum(Double.parseDouble(monthlyBudget) / 4 - Double.parseDouble(moneySpentWeek));
+                amountLeftWk.setText(rounded + "$ left for this week.");
 
                 //set text for monthly progress percentage
-                monthlyProgressText.setText("" + (Double.parseDouble(monthlyBudget) / Double.parseDouble(moneySpentMonth)));
+                String prog = roundNum((Double.parseDouble(moneySpentMonth) / Double.parseDouble(monthlyBudget))*100);
+                int prog2 = (int) Double.parseDouble(prog);
+                monthlyProgressText.setText(prog2+"%");
                 int animationDuration = 2500; // 2500ms = 2,5s
                 circularProgressBar.setProgressWithAnimation((Float.parseFloat(monthlyBudget) / Float.parseFloat(moneySpentMonth)), animationDuration); // Default duration = 1500ms
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -109,5 +138,44 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        final Dialog dialog = new Dialog(this);
+        final String expense;
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.activity_expense);
+        DisplayMetrics metrics = getResources().getDisplayMetrics();
+        int screenWidth = (int) (metrics.widthPixels);
+        int screenHeight = (int) (metrics.heightPixels);
+        dialog.getWindow().setLayout(screenWidth,screenHeight);
+        final ImageButton nextExpense = (ImageButton) dialog.findViewById(R.id.nextExpense);
+        final TextInputEditText t = (TextInputEditText) dialog.findViewById(R.id.expense_budget);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.show();
+                nextExpense.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        String te = t.getText().toString();
+                        addedExpense = ""+(Double.parseDouble(balanceS) - Double.parseDouble(te) );
+                        addedExpenseMonth = ""+(Double.parseDouble(moneyWeekS) + Double.parseDouble(te) );
+                        addedExpenseWeek =  ""+(Double.parseDouble(moneyMonthS) + Double.parseDouble(te) );
+                        databaseCustomers.child("0").child("balance").setValue(addedExpense);
+                        databaseCustomers.child("0").child("moneySpentWeek").setValue(addedExpenseWeek);
+                        databaseCustomers.child("0").child("moneySpentMonth").setValue(addedExpenseMonth);
+                        //Intent i = new Intent(ExpenseActivity.this,MainActivity.class);
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+    }
+
+    public static String roundNum(double dub){
+        dub = dub*1000;
+        int integ = (int) dub;
+        integ = integ/10;
+        dub = integ/100.0;
+        return ""+dub;
+
     }
 }

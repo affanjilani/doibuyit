@@ -5,16 +5,14 @@ package com.example.obiaf.doibuyit;
  */
 
 public class Customers {
-    String name;
     String balance;
     String monthlyBudget;
     String moneySpentWeekly;
     String moneySpentMonthly;
 
 
-    public Customers(String name, String balance, String monthlyBudget, String moneySpentWeekly, String moneySpentMonthly)
+    public Customers(String balance, String monthlyBudget, String moneySpentWeekly, String moneySpentMonthly)
         {
-            this.name = name;
             this.balance = balance;
             this.monthlyBudget = monthlyBudget;
             this.moneySpentWeekly = moneySpentWeekly;
