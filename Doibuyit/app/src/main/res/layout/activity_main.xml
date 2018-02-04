@@ -56,14 +56,15 @@
         android:layout_height="wrap_content">
         <LinearLayout
             android:orientation="vertical"
+            android:background="@color/transparent"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
                 android:id="@+id/weeklyProgress"
-                android:layout_height="25dp"
-                android:layout_width="320dp"
+                android:layout_height="20dp"
+                android:layout_width="300dp"
                 app:rcBackgroundPadding="3dp"
                 app:rcRadius="30dp"
                 />
@@ -78,9 +79,10 @@
                 android:textSize="20sp"
                 android:textColor="@color/black"/>
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="140dp">
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -92,7 +94,7 @@
                         android:textSize="35sp"
                         android:textAlignment="center"
                         android:textColor="@color/colorPrimaryDark"
-                        android:layout_marginTop="50dp"/>
+                        android:layout_marginTop="47dp"/>
 
 
                     <com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -116,6 +118,7 @@
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:text="of monthly\nbudget spent"/>
+
 
         </LinearLayout>
 
