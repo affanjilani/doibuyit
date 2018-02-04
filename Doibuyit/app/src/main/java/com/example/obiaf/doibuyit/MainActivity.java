@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     String moneySpentMonth; //how much money spent this month
     String moneySpentWeek; //how much money spent this week
     String name;    //name of customer
-    Button tv;
+    TextView tv;
     String addedExpense;
     String addedExpenseWeek;
     String addedExpenseMonth;
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
     String balanceS;
     String moneyWeekS;
     String moneyMonthS;
+    TextView deposit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        tv = (Button) findViewById(R.id.clickme);
+        tv = (TextView) findViewById(R.id.add_expense2);
+        deposit = (TextView) findViewById(R.id.deposit);
 
         //all fields from activity_main.xml we will have to change
         final TextView overviewBalance = (TextView) findViewById(R.id.overviewBalance);   //total amount
@@ -164,6 +166,31 @@ public class MainActivity extends AppCompatActivity {
                         databaseCustomers.child("0").child("moneySpentMonth").setValue(addedExpenseMonth);
                         //Intent i = new Intent(ExpenseActivity.this,MainActivity.class);
                         dialog.dismiss();
+                    }
+                });
+            }
+        });
+        //Deposit
+        final Dialog dialog2 = new Dialog(this);
+        final String deposit2;
+        dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog2.setContentView(R.layout.deposit);
+
+        dialog2.getWindow().setLayout(screenWidth,screenHeight);
+        final ImageButton nextDeposit = (ImageButton) dialog2.findViewById(R.id.nextDeposit);
+        final TextInputEditText d = (TextInputEditText) dialog2.findViewById(R.id.deposit_budget);
+        deposit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog2.show();
+                nextDeposit.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+                        String de = d.getText().toString();
+                        addedExpense = ""+(Double.parseDouble(balanceS) + Double.parseDouble(de) );
+                        databaseCustomers.child("0").child("balance").setValue(addedExpense);
+                        //Intent i = new Intent(ExpenseActivity.this,MainActivity.class);
+                        dialog2.dismiss();
                     }
                 });
             }
