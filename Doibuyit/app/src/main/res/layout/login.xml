@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/overviewTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text = "Login"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textSize="40sp"
+            android:paddingTop="75dp"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/overviewUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text = "username"
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:paddingTop="50dp"
+            android:textColor="@color/black"
+            />
+        <EditText
+        android:id="@+id/overviewUsernameInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAllCaps="false"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:paddingTop="5dp"
+        android:textColor="@color/black"
+            android:inputType="text"
+        />
+        <TextView
+            android:id="@+id/overviewPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text = "password"
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:paddingTop="30dp"
+            android:textColor="@color/black"
+            />
+        <EditText
+            android:id="@+id/overviewPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:inputType="textPassword"
+            android:textSize="20dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/black"
+            />
+        <Button
+            android:id="@+id/overviewButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="12dp"
+            android:text="login"
+            android:textAllCaps="true"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_marginTop="40dp"
+            />
+        <TextView
+            android:id="@+id/verify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:paddingTop="20dp"
+            android:textColor="@color/black"
+            />
+
+</LinearLayout>

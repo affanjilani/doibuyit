@@ -6,14 +6,16 @@ package com.example.obiaf.doibuyit;
 
 public class Customers {
     String name;
-    int amount;
-    String username;
-    String password;
+    String balance;
+    String monthlyBudget;
+    String moneySpentWeekly;
+    String moneySpentMonthly;
 
-    public Customers(String name, int amount, String username, String password){
+    public Customers(String name, String balance, String monthlyBudget, String moneySpentWeekly, String moneySpentMonthly){
         this.name = name;
-        this.amount = amount;
-        this.username = username;
-        this.password = password;
+        this.balance = balance;
+        this.monthlyBudget  = monthlyBudget;
+        this.moneySpentWeekly = moneySpentWeekly;
+        this.moneySpentMonthly = moneySpentMonthly;
     }
 }
