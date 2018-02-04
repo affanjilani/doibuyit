@@ -3,10 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-<<<<<<< HEAD
     <LinearLayout
-=======
->>>>>>> Wael
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -21,10 +18,7 @@
             android:paddingTop="75dp"
             android:textColor="@color/black"
             />
-<<<<<<< HEAD
-=======
 
->>>>>>> Wael
         <TextView
             android:id="@+id/overviewUsername"
             android:layout_width="match_parent"
@@ -40,20 +34,13 @@
         android:id="@+id/overviewUsernameInput"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:text = "ex: john@gmail.com"
-=======
->>>>>>> Wael
         android:textAllCaps="false"
         android:textAlignment="center"
         android:textSize="20sp"
         android:paddingTop="5dp"
         android:textColor="@color/black"
-<<<<<<< HEAD
-=======
-            android:inputType="text"
->>>>>>> Wael
-        />
+            android:inputType="text"       />
         <TextView
             android:id="@+id/overviewPassword"
             android:layout_width="match_parent"
@@ -69,15 +56,13 @@
             android:id="@+id/overviewPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-<<<<<<< HEAD
+
             android:text = "ex: abc123"
             android:textAllCaps="false"
             android:textAlignment="center"
-=======
-            android:textAllCaps="false"
-            android:textAlignment="center"
+
             android:inputType="textPassword"
->>>>>>> Wael
+
             android:textSize="20dp"
             android:paddingTop="5dp"
             android:textColor="@color/black"
@@ -93,10 +78,10 @@
             android:textSize="20dp"
             android:layout_marginTop="40dp"
             />
-<<<<<<< HEAD
+
 
     </LinearLayout>
-=======
+
         <TextView
             android:id="@+id/verify"
             android:layout_width="match_parent"
@@ -107,6 +92,6 @@
             android:paddingTop="20dp"
             android:textColor="@color/black"
             />
->>>>>>> Wael
+
 
 </LinearLayout>
