@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "140393601702",
+    "firebase_url": "https://doibuyit-6ebbd.firebaseio.com",
+    "project_id": "doibuyit-6ebbd",
+    "storage_bucket": "doibuyit-6ebbd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:140393601702:android:e5db85f47cb07495",
+        "android_client_info": {
+          "package_name": "com.example.obiaf.doibuyit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "140393601702-9baegulhkmecl9easvil7i5hr51cfm2l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.obiaf.doibuyit",
+            "certificate_hash": "7bec2339927d4ccb1a9cd05b9e6c0b2fa77540e9"
+          }
+        },
+        {
+          "client_id": "140393601702-iqj3lafd5jv7chh3a28tb8kaca6sc6s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBv0D528HL-XVeNPqZg8sFn_S0RzQ_M8CI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "140393601702-iqj3lafd5jv7chh3a28tb8kaca6sc6s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
