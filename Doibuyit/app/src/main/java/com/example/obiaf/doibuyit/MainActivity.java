@@ -13,6 +13,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Console;
+import java.sql.Array;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,23 +39,22 @@ public class MainActivity extends AppCompatActivity {
     
     DatabaseReference databaseCustomers;
     int counter = 0;
-    ArrayList<String> userList = new ArrayList<>();
-    ArrayList<String> passList = new ArrayList<>();
     Context context = this;
+    ArrayList<Customers> customersList = new ArrayList<>();
+    //all variables that will be used to show information
+    String balance;     //total amount of money customer has
+    String monthlyBudget;   //how much money customer wants to spend during the month
+    String moneySpentMonth; //how much money spent this month
+    String moneySpentWeek; //how much money spent this week
+    String name;    //name of customer
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         databaseCustomers = FirebaseDatabase.getInstance().getReference("Customers");
-        Customers customer1 = new Customers("Affan", 12,"Affan69","sexy");
-        databaseCustomers.child(counter + "").setValue(customer1);
-        counter++;
-        Customers customer2 = new Customers("Wael", 123,"wael12","sexy");
-        databaseCustomers.child(counter + "").setValue(customer2);
 
     }
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -68,14 +68,26 @@ public class MainActivity extends AppCompatActivity {
         CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.monthlyProgress);  //monthly progress bar
 
 
-        //all variables that will be used to show information
-        String balance;     //total amount of money customer has
-        String monthlyBudget;   //how much money customer wants to spend during the month
-        String moneySpentMonth; //how much money spent this month
-        String moneySpentWeek; //how much money spent this week
-        String name;    //name of customer
+        databaseCustomers.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot child : dataSnapshot.getChildren()){
+                    balance = String.valueOf(child.child("balance").getValue());
+                    monthlyBudget = String.valueOf(child.child("monthlyBudget").getValue());
+                    moneySpentMonth = String.valueOf(child.child("moneySpentMonth").getValue());
+                    moneySpentWeek = String.valueOf(child.child("moneySpentWeek").getValue());
+                    name = String.valueOf(child.child("name").getValue());
+                    //creating a customer object and then adding it to the arrayList.
+                    Customers Customer = new Customers(name,balance,monthlyBudget,moneySpentWeek,moneySpentMonth);
+                    customersList.add(Customer);
+                }
+            }
 
-        //TODO: initialize all the above fields
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         //set total balance
         overviewBalance.setText(balance);
@@ -87,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         progress1.setProgressColor(Color.parseColor("#FFFFFF"));
         progress1.setProgressBackgroundColor(ContextCompat.getColor(this.context, R.color.moneyGreen));
         progress1.setMax(Float.parseFloat(monthlyBudget)/4);  //for a weekly budget we divide by 4
-        progress1.setProgress(Float.parseFloat(moneySpentWeek);
+        progress1.setProgress(Float.parseFloat(moneySpentWeek));
 
         //set amount left text
         String rounded = String.format("%.2f",Double.parseDouble(monthlyBudget)/4);
